@@ -21,6 +21,7 @@ public class Bang extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        System.out.println("Running");
         Button btn = new Button();
         btn.setText("Say 'Hello World'");
         btn.setOnAction(new EventHandler<ActionEvent>() {
