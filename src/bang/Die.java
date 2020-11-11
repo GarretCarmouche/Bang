@@ -9,13 +9,14 @@ import java.util.Random;
 
 /**
  *
- * @author archanbhattarai
+ * @author Samrat Bhattarai
  */
 public class Die {
-    public final int numberOfDice = 5;
+    // Global variable declaration
+    private final int numberOfDice = 5;
     private final int numDieSide = 6;
     public String side1,side2,side3,side4,side5,side6;
-    public String[] sides = {"Arrow","Dynamite","Gatling Gun","Bull's Eye 1",
+    public final String[] sides = {"Arrow","Dynamite","Gatling Gun","Bull's Eye 1",
         "Bull's Eye 2","Beer"};
     
     //Constructor for a Die
@@ -35,15 +36,18 @@ public class Die {
             Dice[i] = new Die();
         }
     }
+    
+    // Rolling the desired Die
     public String rollDice(String input) {
         Random rand = new Random(); // To get a random number
         int randomInt = rand.nextInt(numDieSide);
-        String temp = selectSide(randomInt);
-        System.out.println(temp);
+        String temp = selectSide(randomInt+1);
+        System.out.println(temp + randomInt);
         return input;
     }
     
-    public String selectSide(int input){
+    // Getting the name of the side after rolling the die
+    private String selectSide(int input){
         switch(input) {
             case 1:
                 return this.side1;
