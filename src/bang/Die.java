@@ -30,7 +30,11 @@ public class Die {
     
     // Creating an array of Dice of type Die
     Die[] Dice = new Die[numberOfDice];
-    
+    public  void createDie() {
+        for (int i = 0; i <= 4; i++) {
+            Dice[i] = new Die();
+        }
+    }
     public String rollDice(String input) {
         Random rand = new Random(); // To get a random number
         int randomInt = rand.nextInt(numDieSide);

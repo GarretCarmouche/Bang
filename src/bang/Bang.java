@@ -89,6 +89,7 @@ public class Bang extends Application {
         Scene newScene = new Scene(secondGridPane, 1400,820);
         
         Die di = new Die();
+        di.createDie();
         System.out.println(di.Dice[1].side1);
         
         //display the second scene
