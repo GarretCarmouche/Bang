@@ -88,6 +88,9 @@ public class Bang extends Application {
         secondGridPane.setVgap(5);
         Scene newScene = new Scene(secondGridPane, 1400,820);
         
+        Die di = new Die();
+        System.out.println(di.Dice[1].side1);
+        
         //display the second scene
         startGame.setOnAction(e -> {
             firstStage.setScene(newScene);
