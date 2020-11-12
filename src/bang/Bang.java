@@ -44,6 +44,7 @@ public class Bang extends Application {
     private TextField new3= new TextField();
     private TextField new5= new TextField();
     private Button startGame = new Button("Start");
+    private Button RollDice = new Button("RollDice");
     
 
     public static void main(String args[]) { 
@@ -70,6 +71,7 @@ public class Bang extends Application {
 //        gridPane.add(new Label("Your Name:"), 0,1);
 //        gridPane.add(nameOfPlayer, 1, 1);
         gridPane.add(startGame, 4, 3);
+        gridPane.add(RollDice, 2,4);
        
         
         // set the proper alignment for the objects
@@ -88,11 +90,20 @@ public class Bang extends Application {
         secondGridPane.setVgap(5);
         Scene newScene = new Scene(secondGridPane, 1400,820);
         
+        Die di = new Die();
+        di.createDie();
+        System.out.println(di.Dice[1].side1);
+        di.rollDice(di.Dice[1].side1);
+        
+        RollDice.setOnAction(e -> {
+            di.rollDice(di.Dice[1].side1);
+        });
+        
         //display the second scene
         startGame.setOnAction(e -> {
             firstStage.setScene(newScene);
+            di.rollDice(di.Dice[1].side1);
             startGame.requestFocus();
-            //secondScene.show(secondStage);
         });
         
     }
