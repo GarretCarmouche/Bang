@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bang;
 
 import java.util.Random;
 
-/**
- *
+/** Die
+ *  Creates Dice object
  * @author Samrat Bhattarai
  */
 public class Die {
@@ -20,6 +15,9 @@ public class Die {
         "Bull's Eye 2","Beer"};
     
     //Constructor for a Die
+    /**
+     * Constructor 
+     */
     Die(){
         this.side1 = sides[0];
         this.side2 = sides[1];
@@ -29,8 +27,13 @@ public class Die {
         this.side6 = sides[5];
     }
     
-    // Creating an array of Dice of type Die
+    // Creating an array of Dice
     Die[] Dice = new Die[numberOfDice];
+    /**
+     * This method creates 5 dice objects and stores in
+     * Dice[]
+     * It doesn't have any parameters and return types
+     */
     public  void createDie() {
         for (int i = 0; i <= 4; i++) {
             Dice[i] = new Die();
@@ -38,15 +41,26 @@ public class Die {
     }
     
     // Rolling the desired Die
-    public String rollDice(String input) {
+    /**
+     * rollDice
+     * This method rolls a die
+     * It doesn't have any parameters
+     * @return random side of a dice
+     */
+    public String rollDice() {
         Random rand = new Random(); // To get a random number
         int randomInt = rand.nextInt(numDieSide);
         String temp = selectSide(randomInt+1);
         System.out.println(temp + randomInt);
-        return input;
+        return temp;
     }
     
     // Getting the name of the side after rolling the die
+    /**
+     * 
+     * @param input a random integer 
+     * @return name of a side of a dice
+     */
     private String selectSide(int input){
         switch(input) {
             case 1:

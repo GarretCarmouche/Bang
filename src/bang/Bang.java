@@ -93,16 +93,16 @@ public class Bang extends Application {
         Die di = new Die();
         di.createDie();
         System.out.println(di.Dice[1].side1);
-        di.rollDice(di.Dice[1].side1);
+        di.rollDice();
         
         RollDice.setOnAction(e -> {
-            di.rollDice(di.Dice[1].side1);
+            di.rollDice();
         });
         
         //display the second scene
         startGame.setOnAction(e -> {
             firstStage.setScene(newScene);
-            di.rollDice(di.Dice[1].side1);
+            di.rollDice();
             startGame.requestFocus();
         });
         
