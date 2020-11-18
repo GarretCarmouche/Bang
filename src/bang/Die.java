@@ -78,29 +78,43 @@ public class Die {
     /**
      * This method creates 5 dice objects and stores in
      * Dice[]
-     * @param whiteDice check if player wants to include it
+     * @param whiteDice number of whiteDice to be included if expansion is used
+     *        by default there are 5 white dices
      * @param blackDice check if player wants to include it
      * @param cowardDice check if player wants to include it
      * @param loudMouth check if player wants to include it
      * It doesn't return anything, just creates 5 dices
      */
     public  void createDice(int whiteDice, int blackDice, int cowardDice, int loudMouth) {
-        if (expansion == 0) {
-            for (int i = 0; i <= 4; i++) {
-                Dice[i] = new Die(0);
+        int numDice = 0; // index of dice
+        // create loudMouth die
+        if (loudMouth != 0) {
+            for (int i = 0; i <= loudMouth-1; i++) {
+                Dice[numDice] = new Die(3);
+                numDice++;
             }
         }
-        else if (expansion == 1){
-            for (int i = 0; i <= 2; i++) 
-                Dice[i] = new Die(0);
-            for (int i = 3; i <=4 ; i++)
-                Dice[i] = new Die(1);
-        }
-        else if (expansion == 2){
-            for (int i = 0; i <= 4; i++) {
-                Dice[i] = new Die(2);
+        // create coward die
+        if (cowardDice != 0){
+            for (int i = 0; i <= cowardDice-1; i++) {
+                Dice[numDice] = new Die(2);
+                numDice++;
             }
         }
+        // create black die
+        if (blackDice != 0){
+            for (int i = 0; i <= blackDice-1; i++) {
+                Dice[numDice] = new Die(2);
+                numDice++;
+            }
+        }
+        // create white die
+        for (int i = numDice; i <= 4; i++) {
+            Dice[i] = new Die(0);
+        }
+       
+            
+        
     }
     
     // Rolling the desired Die
@@ -113,7 +127,7 @@ public class Die {
     public String rollDice(Die toRoll) {
         Random rand = new Random(); // To get a random number
         int randomInt = rand.nextInt(numDieSide);
-        String temp = selectSide(toRoll,randomInt+1);
+        String temp = selectSide(toRoll,randomInt);
         System.out.println(temp);
         return temp;
     }

@@ -91,18 +91,16 @@ public class Bang extends Application {
         Scene newScene = new Scene(secondGridPane, 1400,820);
         
         Die di = new Die(1);
-        di.createDice(1);
-        System.out.println(di.Dice[1].side1);
-        di.rollDice();
+        di.createDice(3,1,1,0); // number of: whiteDice, blackDice, cowardDice, loudMouth
         
         RollDice.setOnAction(e -> {
-            di.rollDice();
+            di.rollDice(di.Dice[1]);
         });
         
         //display the second scene
         startGame.setOnAction(e -> {
             firstStage.setScene(newScene);
-            di.rollDice();
+            di.rollDice(di.Dice[1]);
             startGame.requestFocus();
         });
         
