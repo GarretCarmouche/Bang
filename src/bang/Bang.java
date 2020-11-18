@@ -90,19 +90,17 @@ public class Bang extends Application {
         secondGridPane.setVgap(5);
         Scene newScene = new Scene(secondGridPane, 1400,820);
         
-        Die di = new Die();
-        di.createDie();
-        System.out.println(di.Dice[1].side1);
-        di.rollDice(di.Dice[1].side1);
+        Die di = new Die(1);
+        di.createDice(3,1,1,0); // number of: whiteDice, blackDice, cowardDice, loudMouth
         
         RollDice.setOnAction(e -> {
-            di.rollDice(di.Dice[1].side1);
+            di.rollDice(di.Dice[1]);
         });
         
         //display the second scene
         startGame.setOnAction(e -> {
             firstStage.setScene(newScene);
-            di.rollDice(di.Dice[1].side1);
+            di.rollDice(di.Dice[1]);
             startGame.requestFocus();
         });
         
