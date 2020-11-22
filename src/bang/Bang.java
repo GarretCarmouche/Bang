@@ -4,106 +4,148 @@
  * and open the template in the editor.
  */
 package bang;
-
-import java.awt.Image;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.Optional;
+
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+//import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
+//import javafx.geometry.HPos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+//import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
 
 /**
  *
- * @author archanbhattarai
+ * @author vreyz
  */
-public class Bang extends Application {
-   
-  
-    // objects in the GUI for data input
-    private RadioButton three = new RadioButton("Three");
-    private RadioButton four = new RadioButton("Four");
-    private RadioButton five = new RadioButton("Five");
-    private RadioButton six = new RadioButton("Six");
-    private RadioButton seven = new RadioButton("Seven");
-    private RadioButton eight = new RadioButton("Eight");
 
-    
-    private TextField nameOfPlayer = new TextField();
-    private TextField new3= new TextField();
-    private TextField new5= new TextField();
-    private Button startGame = new Button("Start");
-    private Button RollDice = new Button("RollDice");
-    
-
-    public static void main(String args[]) { 
-        // launch the application 
-        launch(args); 
-    } 
-    
+public class Bang extends Application{
     @Override
-    public void start(Stage firstStage) {   
-        // set title for the stage
-        firstStage.setTitle("Welcome to Bang! The Dice Game");
+            public void start (Stage stage) throws FileNotFoundException{
+        /*
+        //Creating the button
+        Button button;
+        button = new Button();
+        button.setText ("Click me!");
+        */
 
-        // Create a Grid to align objects, then set objects in place
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(5);
-        gridPane.setVgap(5);
-        gridPane.add(new Label("Number of Players:"), 0,0);
-        gridPane.add(four, 3, 0);
-        gridPane.add(five, 4, 0);
-        gridPane.add(six, 5, 0);
-        gridPane.add(seven, 6, 0);
-        gridPane.add(eight, 7, 0);
-       
-//        gridPane.add(new Label("Your Name:"), 0,1);
-//        gridPane.add(nameOfPlayer, 1, 1);
-        gridPane.add(startGame, 4, 3);
-        gridPane.add(RollDice, 2,4);
-       
-        
-        // set the proper alignment for the objects
-        gridPane.setAlignment(Pos.CENTER);
-//        four.setAlignment(Pos.BOTTOM_LEFT);
-//        nameOfPlayer.setAlignment(Pos.BOTTOM_LEFT);
-        
-        
-        //display the first scene
-        Scene scene = new Scene(gridPane,500,250);
-        firstStage.setScene(scene);
-        firstStage.show();
-        
-        GridPane secondGridPane = new GridPane();
-        secondGridPane.setHgap(5);
-        secondGridPane.setVgap(5);
-        Scene newScene = new Scene(secondGridPane, 1400,820);
-        
-        Die di = new Die(1);
-        di.createDice(3,1,1,0); // number of: whiteDice, blackDice, cowardDice, loudMouth
-        
-        RollDice.setOnAction(e -> {
-            di.rollDice(di.Dice[1]);
-        });
-        
-        //display the second scene
-        startGame.setOnAction(e -> {
-            firstStage.setScene(newScene);
-            di.rollDice(di.Dice[1]);
-            startGame.requestFocus();
-        });
-        
+        //Creating an image
+             Image image = new Image(new FileInputStream("C:\\Users\\vreyz\\Desktop\\Bang\\bangFront.jpg"));
+
+             //Setting the image view 1
+              ImageView imageView1 = new ImageView(image);
+
+              //Setting the position of the image
+              imageView1.setX(50);
+              imageView1.setY(15);
+
+              //setting the fit height and width of the image view
+              imageView1.setFitHeight(370);
+              imageView1.setFitWidth(290);
+
+              //Setting the preserve ratio of the image view
+              imageView1.setPreserveRatio(true);
+
+              // create a button1
+              Button button1 = new Button("Start Game");
+
+              // Here's the second page that will be opened once we click on the button
+              button1.setOnAction((ActionEvent event) -> {
+                  Label secondLabel = new Label("I'm a Label on new Window");
+                  
+                  StackPane secondaryLayout = new StackPane();
+                  secondaryLayout.getChildren().add(secondLabel);
+                  
+                  Scene secondScene = new Scene(secondaryLayout, 600, 400);
+                  
+                  // New window (Stage)
+                  Stage newWindow = new Stage();
+                  newWindow.setTitle("Second Stage");
+                  newWindow.setScene(secondScene);
+                  
+                  // Specifies the modality for new window.
+                  newWindow.initModality(Modality.WINDOW_MODAL);
+                  
+                  /*
+                  // Specifies the owner Window (parent) for new window
+                  newWindow.initOwner(primaryStage);
+                  
+                  // Set position of second window, related to primary window.
+                  newWindow.setX(primaryStage.getX() + 200);
+                  newWindow.setY(primaryStage.getY() + 100);
+                  */
+                  newWindow.show();
+             });
+              button1.setLayoutX(400);
+              button1.setLayoutY(200);
+
+              // create a Menu button
+                MenuItem menuItem1 = new MenuItem("4 Players");
+                MenuItem menuItem2 = new MenuItem("5 Players");
+                MenuItem menuItem3 = new MenuItem("6 Players");
+
+                MenuButton menuButton = new MenuButton("Options", null, menuItem1, menuItem2, menuItem3);
+                menuItem1.setOnAction((ActionEvent event) ->{
+                  menuButton.setText("4 players");
+                });
+
+                menuItem2.setOnAction((ActionEvent event) ->{
+                    menuButton.setText("5 players");
+                });
+
+                menuItem3.setOnAction((ActionEvent event) ->{
+                    menuButton.setText("6 players");
+                });
+                ChoiceBox<String> choiceBox = new ChoiceBox<>();
+                choiceBox.getItems().add("4 Players");
+                choiceBox.getItems().add("5 Players");
+                choiceBox.getItems().add("6 Players");
+
+
+                HBox hbox = new HBox(menuButton);
+                hbox.setLayoutX(400);
+                hbox.setLayoutY(240);
+
+              // create a stack pane
+              StackPane r = new StackPane();
+
+              // add button
+              r.getChildren().add(button1);
+              r.getChildren().add(hbox);
+
+        //Creating a Group object
+              Group root = new Group(imageView1, button1, hbox);
+
+              //Creating a scene object
+              Scene scene = new Scene(root, 600, 400);
+
+              //Setting title to the Stage
+              stage.setTitle("Bang The Dice Game");
+
+              //Adding scene to the stage
+              stage.setScene(scene);
+              //stage.setScene(scene2);
+
+              //Displaying the contents of the stage
+              stage.show();
+
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
     }
     
 }
