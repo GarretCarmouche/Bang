@@ -25,7 +25,6 @@ public class Characters
     /*List of names of the Undead or Alive characters*/
     public enum Character_Name_Undead_Or_Alive {Greg_Digger, Herb_Hunter, Pat_Brennan, 
     Pixie_Pete, Sam_The_Healer, Sean_Mallory, Belle_Star, Chuck_Wengam}
-    
-    public enum Health{Life}
 
+    
 }

@@ -10,10 +10,11 @@ import java.util.*;
  *
  * @author Garret
  */
-
-public class Player {
+/*changed to be super class*/
+public abstract class Player {
     //private Character char;
-    
+    private String Name;
+    private int Health;
     public Player(){
         
     }
