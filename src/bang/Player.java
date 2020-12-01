@@ -5,16 +5,14 @@
  */
 package bang;
 
-import java.util.*;
+import java.util.ArrayList;
 /**
  *
  * @author Garret
  */
-
-public class Player {
-    //private Character char;
-    
-    public Player(){
-        
-    }
+/*changed to be super class*/
+public class Player 
+{
+    /*was making changes I shouldn't have, reverted to previous version*/
+    public Player(){}
 }
