@@ -4,7 +4,7 @@ import java.util.Random;
 
 /** Die
  *  Creates Dice object
- * @author Samrat Bhattarai
+ * @author Samrat Bhattarai, Garret Carmouche
  */
 public class Die {
     // Global variable declaration
@@ -29,47 +29,71 @@ public class Die {
     /**
      * Constructor
      */
-    Die(int expansion){
-        if(expansion== 0) {
-            this.side1 = whiteDice[0];
-            this.side2 = whiteDice[1];
-            this.side3 = whiteDice[2];
-            this.side4 = whiteDice[3];
-            this.side5 = whiteDice[4];
-            this.side6 = whiteDice[5];
-            this.diceName = diceType[0];
-        }
-        
-        else if(expansion == 1) {
-            this.side1 = blackDice[0];
-            this.side2 = blackDice[1];
-            this.side3 = blackDice[2];
-            this.side4 = blackDice[3];
-            this.side5 = blackDice[4];
-            this.side6 = blackDice[5];
-            this.diceName = diceType[1];
-        }
-        
-        else if(expansion == 2) {
-            this.side1 = cowardDice[0];
-            this.side2 = cowardDice[1];
-            this.side3 = cowardDice[2];
-            this.side4 = cowardDice[3];
-            this.side5 = cowardDice[4];
-            this.side6 = cowardDice[5];
-            this.diceName = diceType[2];
-        }
-        
-        else if(expansion == 3) {
-            this.side1 = loudMouth[0];
-            this.side2 = loudMouth[1];
-            this.side3 = loudMouth[2];
-            this.side4 = loudMouth[3];
-            this.side5 = loudMouth[4];
-            this.side6 = loudMouth[5];
-            this.diceName = diceType[3];
+    public Die(int expansion){
+        switch (expansion) {
+            case 1:
+                this.side1 = blackDice[0];
+                this.side2 = blackDice[1];
+                this.side3 = blackDice[2];
+                this.side4 = blackDice[3];
+                this.side5 = blackDice[4];
+                this.side6 = blackDice[5];
+                this.diceName = diceType[1];
+                break;
+            case 2:
+                this.side1 = cowardDice[0];
+                this.side2 = cowardDice[1];
+                this.side3 = cowardDice[2];
+                this.side4 = cowardDice[3];
+                this.side5 = cowardDice[4];
+                this.side6 = cowardDice[5];
+                this.diceName = diceType[2];
+                break;
+            case 3:
+                this.side1 = loudMouth[0];
+                this.side2 = loudMouth[1];
+                this.side3 = loudMouth[2];
+                this.side4 = loudMouth[3];
+                this.side5 = loudMouth[4];
+                this.side6 = loudMouth[5];
+                this.diceName = diceType[3];
+                break;
+            case 0:
+            default:
+                this.side1 = whiteDice[0];
+                this.side2 = whiteDice[1];
+                this.side3 = whiteDice[2];
+                this.side4 = whiteDice[3];
+                this.side5 = whiteDice[4];
+                this.side6 = whiteDice[5];
+                this.diceName = diceType[0];
+                break;
         }
 
+    }
+    
+    /**
+     * Rolls the die
+     * @return String side of die rolled
+     */
+    public String roll(){
+        int sideChosen = (int)(Math.random() * 7);
+        switch(sideChosen){
+            case 1:
+                return this.side1;
+            case 2:
+                return this.side2;
+            case 3:
+                return this.side3;
+            case 4:
+                return this.side4;
+            case 5:
+                return this.side5;
+            case 6:
+                return this.side6;
+            default:
+                return this.side1;
+        }
     }
     
     // Creating an array of Dice
@@ -84,6 +108,8 @@ public class Die {
      * @param cowardDice check if player wants to include it
      * @param loudMouth check if player wants to include it
      * It doesn't return anything, just creates 5 dices
+     * @deprecated
+     * Replaced by new functionality (Garret)
      */
     public  void createDice(int whiteDice, int blackDice, int cowardDice, int loudMouth) {
         int numDice = 0; // index of dice
@@ -123,6 +149,8 @@ public class Die {
      * This method rolls a die
      * It doesn't have any parameters
      * @return random side of a dice
+     * @deprecated
+     * Replaced by new functionality (Garret)
      */
     public String rollDice(Die toRoll) {
         Random rand = new Random(); // To get a random number
@@ -137,6 +165,7 @@ public class Die {
      * 
      * @param input a random integer 
      * @return name of a side of a dice
+     * @deprecated Replaced with new functionality (Garret)
      */
     private String selectSide(Die toRoll,int input){
         String temp;
