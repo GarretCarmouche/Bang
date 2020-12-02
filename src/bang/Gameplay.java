@@ -134,7 +134,7 @@ public class Gameplay {
      */
     private static void returnArrows(){
         for (Player player : players) {
-            Character_Construct character = player.getCharacter();
+            Implement character = player.getCharacter();
             character.dealDamage(player.getArrows());
             player.removeArrows();
         }

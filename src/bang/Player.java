@@ -1,23 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bang;
 
 import java.util.ArrayList;
 /**
  *
- * @author Garret
+ * @author Garret Carmouche
  */
 
 public class Player {
     
-    private Character_Construct character;
+    private Implement character;
     private String role;
     private int arrows = 0;
     
-    public Player(Character_Construct character, String role){
+    public Player(Implement character, String role){
         this.character = character;
         this.role = role;
     }
@@ -31,7 +26,7 @@ public class Player {
         return role;
     }
     
-    public Character_Construct getCharacter(){
+    public Implement getCharacter(){
         return character;
     }
     
