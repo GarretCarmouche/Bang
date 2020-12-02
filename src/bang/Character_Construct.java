@@ -183,6 +183,12 @@ public class Character_Construct
         return Life_Points;
     }
     
+    public boolean isAlive(){
+        return Life_Points > 0;
+    }
     
+    public void dealDamage(int amount){
+        Life_Points -= amount;
+    }
     
 }
