@@ -261,4 +261,8 @@ public class Implement
     public void dealDamage(int amount){
         Health -= amount;
     }
+    
+    public void heal(int amount){
+        Health += amount;
+    }
 }

@@ -38,6 +38,11 @@ public class Player {
         giveArrow(1);
     }
     
+    public void removeArrow(){
+        if(arrows > 0)
+            arrows--;
+    }
+    
     public int getArrows(){
         return arrows;
     }
