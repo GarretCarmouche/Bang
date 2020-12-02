@@ -253,4 +253,16 @@ public class Implement
     {
         return Name;
     }
+    
+    public boolean isAlive(){
+        return Health != 0;
+    }
+    
+    public void dealDamage(int amount){
+        Health -= amount;
+    }
+    
+    public void heal(int amount){
+        Health += amount;
+    }
 }

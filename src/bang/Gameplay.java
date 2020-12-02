@@ -134,7 +134,7 @@ public class Gameplay {
      */
     private static void returnArrows(){
         for (Player player : players) {
-            Character_Construct character = player.getCharacter();
+            Implement character = player.getCharacter();
             character.dealDamage(player.getArrows());
             player.removeArrows();
         }
@@ -189,6 +189,8 @@ public class Gameplay {
         
         String[] result = rollDice();
         for (String result1 : result) {
+            int bullsEyeRange = 2;
+            int bullsEyeDamage = 1;
             switch (result1) {
                 case "Arrow":
                     rolledArrow(player);
@@ -196,16 +198,19 @@ public class Gameplay {
                 case "Dynamite":
                     dynamite++;
                     break;
+                case "Double Bull's Eye 2":
+                case "Double Bull's Eye 1":
+                    bullsEyeDamage = 2;
                 case "Bull's Eye 1":
                 case "Bull's Eye 2":
                     Player target;
-                    int range = 2;
-                    if (result1.equals("Bull's Eye 1")) {
-                        range = 1;
+                    bullsEyeRange = 2;
+                    if (result1.equals("Bull's Eye 1") || result1.equals("Double Bull's Eye 1")) {
+                        bullsEyeRange = 1;
                     }                    
                     if(player instanceof AI){
                         Player right, left;
-                        int rightIndex = currentTurn + range - 1, leftIndex = currentTurn - range + 1;
+                        int rightIndex = currentTurn + bullsEyeRange - 1, leftIndex = currentTurn - bullsEyeRange + 1;
                         do{
                             rightIndex = (rightIndex + 1)%players.length;
                             right = players[rightIndex];
@@ -220,11 +225,56 @@ public class Gameplay {
                         attackOptions.add(left);
                         attackOptions.add(right);
                         target = ((AI) player).decideAttack(attackOptions);
+                        target.getCharacter().dealDamage(bullsEyeDamage);
                     }else{
                         //Prompt bullseye selection UI
                     }
                     break;
                 case "Gatling Gun":
+                    gatlingGun++;
+                    if(gatlingGun >= 3){
+                        for (Player targetPlayer : players) {
+                            if(targetPlayer != player){
+                                targetPlayer.getCharacter().dealDamage(1);
+                            }
+                        }
+                        player.getCharacter().heal(1);
+                        gatlingGun = -99;
+                    }
+                    break;
+                case "Beer":
+                    if(player instanceof AI){
+                        ArrayList<Player> healablePlayers = new ArrayList<Player>();
+                        for(Player healPlayer : players){
+                            if(healPlayer.getCharacter().isAlive())
+                                healablePlayers.add(healPlayer);
+                        }
+                        
+                        Player targetPlayer = ((AI) player).decideHeal(healablePlayers);
+                        targetPlayer.getCharacter().heal(1);
+                    }else{
+                        //Prompt player for heal target
+                    }
+                    break;
+                case "Whiskey Jar":
+                    player.getCharacter().heal(1);
+                    break;
+                case "Broken Arrow":
+                    if(player instanceof AI){
+                         ArrayList<Player> healablePlayers = new ArrayList<Player>();
+                        for(Player healPlayer : players){
+                            if(healPlayer.getCharacter().isAlive() && healPlayer.getArrows() > 0)
+                                healablePlayers.add(healPlayer);
+                        }
+                        
+                        Player targetPlayer = ((AI) player).decideHeal(healablePlayers);
+                        targetPlayer.removeArrow();
+                    }else{
+                        //Prompt user for target
+                    }
+                    break;
+                case "Silver Bullet":
+                    player.getCharacter().dealDamage(1);
                     break;
             }
         }
