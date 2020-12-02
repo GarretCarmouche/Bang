@@ -16,7 +16,7 @@ public class Die {
     public final String[] whiteDice = {"Arrow","Dynamite","Gatling Gun",
         "Bull's Eye 1", "Bull's Eye 2","Beer"};
     
-    public final String[] blackDice = {"Duel","Duel1",
+    public final String[] blackDice = {"Duel","Duel",
         "Dynamite","Arrow", "Gatling Gun","Whiskey Jar"};
     
     public final String[] cowardDice = {"Arrow","Dynamite",
