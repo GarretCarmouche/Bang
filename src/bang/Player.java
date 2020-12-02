@@ -5,7 +5,7 @@
  */
 package bang;
 
-import java.util.*;
+import java.util.ArrayList;
 /**
  *
  * @author Garret
@@ -21,6 +21,7 @@ public class Player {
         this.character = character;
         this.role = role;
     }
+    
     
     public Player(){
         
