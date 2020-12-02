@@ -16,7 +16,7 @@ public class Die {
     public final String[] whiteDice = {"Arrow","Dynamite","Gatling Gun",
         "Bull's Eye 1", "Bull's Eye 2","Beer"};
     
-    public final String[] blackDice = {"Duel","Duel31",
+    public final String[] blackDice = {"Duel","Duel",
         "Dynamite","Arrow", "Gatling Gun","Whiskey Jar"};
     
     public final String[] cowardDice = {"Arrow","Dynamite",
@@ -172,7 +172,6 @@ public class Die {
         if (diceType[0].equals(toRoll.diceName)) { 
             temp = whiteDice[input];
         }
-        
         else if (diceType[1].equals(toRoll.diceName)) { 
             temp = blackDice[input];
         }
