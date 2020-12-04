@@ -1,3 +1,4 @@
+package bang;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Optional;
@@ -22,18 +23,14 @@ import javafx.scene.text.Text;
 import javax.swing.*;
 //import javafx.geometry.Insets;
 //import javafx.geometry.Pos;
+/**
+ *
+ * @author vreyz
+ */
 
-public class Main extends Application {
+public class Bang extends Application{
     @Override
-    public void start (Stage stage) throws FileNotFoundException{
-        /*
-        //Creating the button
-        Button button;
-        button = new Button();
-        button.setText ("Click me!");
-        */
-
-        //Creating an image
+            public void start (Stage stage) throws FileNotFoundException{
         Image image = new Image(new FileInputStream("bangFront.jpg"));
 
         //Setting the image view 1
@@ -246,6 +243,4 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }
-

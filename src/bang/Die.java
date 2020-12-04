@@ -172,7 +172,6 @@ public class Die {
         if (diceType[0].equals(toRoll.diceName)) { 
             temp = whiteDice[input];
         }
-        
         else if (diceType[1].equals(toRoll.diceName)) { 
             temp = blackDice[input];
         }
