@@ -56,6 +56,10 @@ public class Gameplay {
         }
     }
     
+    public static void startGame(){
+        
+    }
+    
     /**
      * Constructs the appropriate number of AI and players
      * @param playerCount Number of players in the game (including user)
