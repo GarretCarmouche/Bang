@@ -11,6 +11,8 @@ public class Gameplay {
     private static boolean blackDieEnabled = false;
     private static boolean loudmouthDieEnabled = false;
     private static boolean cowardDieEnabled = false;
+    private static boolean undeadOrAliveEnabled = false;
+    private static boolean oldSaloonEnabled = false;
     
     private static Player[] players;
     private static int currentTurn = -1;
@@ -21,6 +23,14 @@ public class Gameplay {
     private static int cowardDice = 0;
     private static int blackDice = 0;
     
+    
+    public static void startGame(int playerCount, boolean undeadOrAlive, boolean oldSaloon){
+        players = null;
+        undeadOrAliveEnabled = undeadOrAlive;
+        oldSaloonEnabled = oldSaloon;
+        constructPlayers(playerCount);
+        //Invoke Bang with players
+    }
     
     /**
      * Rolls the appropriate dice for the expansion and returns the result
