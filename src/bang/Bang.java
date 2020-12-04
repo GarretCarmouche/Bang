@@ -1,4 +1,3 @@
-package bang; 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Optional;
@@ -24,7 +23,7 @@ import javax.swing.*;
 //import javafx.geometry.Insets;
 //import javafx.geometry.Pos;
 
-public class Bang extends Application {
+public class Main extends Application {
     @Override
     public void start (Stage stage) throws FileNotFoundException{
         /*
@@ -58,91 +57,7 @@ public class Bang extends Application {
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                startGame();
-
-                //public static void createPlayerFrame(int ID, int health, String roles, int arrow, boolean isSherrif){
-                //Creating a Text object
-                Text text = new Text();
-                Text text2 = new Text();
-                Text text3 = new Text();
-                Text text4 = new Text();
-                Text text5 = new Text();
-                Text text6 = new Text();
-
-                //Setting the text to be added.
-                text.setText("Player statistics:");
-                text2.setText("Player ID: "+ "\n");
-                text3.setText("Health: "  + "\n");
-                text4.setText("Role: "   + "\n");
-                text5.setText("Arrow: "   + "\n");
-                text6.setText("Sheriff?: " + "\n");
-
-
-                //setting the position of the text
-                text.setLayoutX(20);
-                text.setLayoutY(20);
-
-                text2.setLayoutX(20);
-                text2.setLayoutY(40);
-
-                text3.setLayoutX(20);
-                text3.setLayoutY(60);
-
-                text4.setLayoutX(20);
-                text4.setLayoutY(80);
-
-                text5.setLayoutX(20);
-                text5.setLayoutY(100);
-
-                text6.setLayoutX(20);
-                text6.setLayoutY(120);
-
-                //Creating a Group object
-                Group root = new Group(text, text2, text3, text4, text5);
-
-                Group secondaryLayout = new Group();
-                //secondaryLayout.getChildren().add(secondLabel);
-                secondaryLayout.getChildren().add(text);
-                secondaryLayout.getChildren().add(text2);
-                secondaryLayout.getChildren().add(text3);
-                secondaryLayout.getChildren().add(text4);
-                secondaryLayout.getChildren().add(text5);
-                secondaryLayout.getChildren().add(text6);
-
-
-                Scene secondScene = new Scene(secondaryLayout, 800, 600);
-
-                // New window (Stage)
-                Stage newWindow = new Stage();
-                newWindow.setTitle("Second Stage");
-                newWindow.setScene(secondScene);
-            /*
-                                  //Creating a scene object
-                                  Scene scene = new Scene(root, 600, 400);
-
-                                  //Setting title to the Stage
-                                  stage.setTitle("Bang The Dice Game");
-
-                                  //Adding scene to the stage
-                                  stage.setScene(scene);
-                                  //stage.setScene(scene2);
-
-                                  //Displaying the contents of the stage
-                                  stage.show();
-            */
-                // Specifies the modality for new window.
-                newWindow.initModality(Modality.WINDOW_MODAL);
-
-                                  /*
-                                  // Specifies the owner Window (parent) for new window
-                                  newWindow.initOwner(primaryStage);
-
-                                  // Set position of second window, related to primary window.
-                                  newWindow.setX(primaryStage.getX() + 200);
-                                  newWindow.setY(primaryStage.getY() + 100);
-                                    */
-                newWindow.show();
-            }
+                startGame(player);}
         });
         button1.setLayoutX(500);
         button1.setLayoutY(200);
@@ -204,7 +119,7 @@ public class Bang extends Application {
         //Create checkbox
         CheckBox checkBox1 = new CheckBox("Classic");
         CheckBox checkBox2 = new CheckBox("Undead or alive");
-        CheckBox checkBox3 = new CheckBox("Old fashion");
+        CheckBox checkBox3 = new CheckBox("Old Saloon");
 
         HBox hbox3 = new HBox(checkBox1);
         hbox3.setLayoutX(500);
@@ -241,6 +156,90 @@ public class Bang extends Application {
         //Displaying the contents of the stage
         stage.show();
 
+    }
+    //Function that will be called once startGame is done working
+    public static void createPlayerFrame(int ID, int health, String roles, int arrow, boolean isSherrif){
+        //Creating a Text object
+        Text text = new Text();
+        Text text2 = new Text();
+        Text text3 = new Text();
+        Text text4 = new Text();
+        Text text5 = new Text();
+        Text text6 = new Text();
+
+        //Setting the text to be added.
+        text.setText("Player statistics:");
+        text2.setText("Player ID: " + ID+ "\n");
+        text3.setText("Health: " + health + "\n");
+        text4.setText("Role: " + roles + "\n");
+        text5.setText("Arrow: " + arrow  + "\n");
+        text6.setText("Sheriff?: " + isSherrif + "\n");
+
+
+        //setting the position of the text
+        text.setLayoutX(20);
+        text.setLayoutY(20);
+
+        text2.setLayoutX(20);
+        text2.setLayoutY(40);
+
+        text3.setLayoutX(20);
+        text3.setLayoutY(60);
+
+        text4.setLayoutX(20);
+        text4.setLayoutY(80);
+
+        text5.setLayoutX(20);
+        text5.setLayoutY(100);
+
+        text6.setLayoutX(20);
+        text6.setLayoutY(120);
+
+        //Creating a Group object
+        Group root = new Group(text, text2, text3, text4, text5);
+
+        Group secondaryLayout = new Group();
+        //secondaryLayout.getChildren().add(secondLabel);
+        secondaryLayout.getChildren().add(text);
+        secondaryLayout.getChildren().add(text2);
+        secondaryLayout.getChildren().add(text3);
+        secondaryLayout.getChildren().add(text4);
+        secondaryLayout.getChildren().add(text5);
+        secondaryLayout.getChildren().add(text6);
+
+
+        Scene secondScene = new Scene(secondaryLayout, 800, 600);
+
+        // New window (Stage)
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Second Stage");
+        newWindow.setScene(secondScene);
+            /*
+                                  //Creating a scene object
+                                  Scene scene = new Scene(root, 600, 400);
+
+                                  //Setting title to the Stage
+                                  stage.setTitle("Bang The Dice Game");
+
+                                  //Adding scene to the stage
+                                  stage.setScene(scene);
+                                  //stage.setScene(scene2);
+
+                                  //Displaying the contents of the stage
+                                  stage.show();
+            */
+        // Specifies the modality for new window.
+        newWindow.initModality(Modality.WINDOW_MODAL);
+
+                                  /*
+                                  // Specifies the owner Window (parent) for new window
+                                  newWindow.initOwner(primaryStage);
+
+                                  // Set position of second window, related to primary window.
+                                  newWindow.setX(primaryStage.getX() + 200);
+                                  newWindow.setY(primaryStage.getY() + 100);
+                                    */
+        newWindow.show();
     }
 
 
