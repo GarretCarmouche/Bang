@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 //import java.util.Optional;
 
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 //import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +23,11 @@ import javafx.stage.Modality;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
+
+//import javax.swing.*;
+//import javafx.geometry.Insets;
+//import javafx.geometry.Pos;
 
 
 /**
@@ -52,8 +56,8 @@ public class Bang extends Application{
               imageView1.setY(15);
 
               //setting the fit height and width of the image view
-              imageView1.setFitHeight(370);
-              imageView1.setFitWidth(290);
+              imageView1.setFitHeight(470);
+              imageView1.setFitWidth(390);
 
               //Setting the preserve ratio of the image view
               imageView1.setPreserveRatio(true);
@@ -62,33 +66,79 @@ public class Bang extends Application{
               Button button1 = new Button("Start Game");
 
               // Here's the second page that will be opened once we click on the button
-              button1.setOnAction((ActionEvent event) -> {
-                  Label secondLabel = new Label("I'm a Label on new Window");
-                  
-                  StackPane secondaryLayout = new StackPane();
-                  secondaryLayout.getChildren().add(secondLabel);
-                  
-                  Scene secondScene = new Scene(secondaryLayout, 600, 400);
-                  
-                  // New window (Stage)
-                  Stage newWindow = new Stage();
-                  newWindow.setTitle("Second Stage");
-                  newWindow.setScene(secondScene);
-                  
-                  // Specifies the modality for new window.
-                  newWindow.initModality(Modality.WINDOW_MODAL);
-                  
-                  /*
-                  // Specifies the owner Window (parent) for new window
-                  newWindow.initOwner(primaryStage);
-                  
-                  // Set position of second window, related to primary window.
-                  newWindow.setX(primaryStage.getX() + 200);
-                  newWindow.setY(primaryStage.getY() + 100);
-                  */
-                  newWindow.show();
-             });
-              button1.setLayoutX(400);
+              button1.setOnAction(new EventHandler<ActionEvent>() {
+                  @Override
+                  public void handle(ActionEvent event) {
+                                //  Label secondLabel = new Label("");
+
+                                  //Creating a Text object
+                                  Text text = new Text();
+                                  Text text2 = new Text();
+                                  Text text3 = new Text();
+                                  Text text4 = new Text();
+
+                                  //Setting the text to be added.
+                                  text.setText("Player statistics:");
+                                  text2.setText("Health:\n");
+                                  text3.setText("Role:\n");
+                                  text4.setText("Arrow:\n");
+
+
+                                  //setting the position of the text
+                                  text.setLayoutX(20);
+                                  text.setLayoutY(20);
+
+                                  text2.setLayoutX(20);
+                                  text2.setLayoutY(30);
+
+                                  text3.setLayoutX(20);
+                                  text3.setLayoutY(40);
+
+                                  text4.setLayoutX(20);
+                                  text4.setLayoutY(50);
+
+                                  //Creating a Group object
+                                  Group root = new Group(text, text2, text3, text4);
+
+                                  Group secondaryLayout = new Group();
+                                  //secondaryLayout.getChildren().add(secondLabel);
+                                  secondaryLayout.getChildren().add(text);
+
+                                  Scene secondScene = new Scene(secondaryLayout, 800, 600);
+
+                                  // New window (Stage)
+                                  Stage newWindow = new Stage();
+                                  newWindow.setTitle("Second Stage");
+                                  newWindow.setScene(secondScene);
+            /*
+                                  //Creating a scene object
+                                  Scene scene = new Scene(root, 600, 400);
+
+                                  //Setting title to the Stage
+                                  stage.setTitle("Bang The Dice Game");
+
+                                  //Adding scene to the stage
+                                  stage.setScene(scene);
+                                  //stage.setScene(scene2);
+
+                                  //Displaying the contents of the stage
+                                  stage.show();
+            */
+                      // Specifies the modality for new window.
+                                  newWindow.initModality(Modality.WINDOW_MODAL);
+
+                                  /*
+                                  // Specifies the owner Window (parent) for new window
+                                  newWindow.initOwner(primaryStage);
+
+                                  // Set position of second window, related to primary window.
+                                  newWindow.setX(primaryStage.getX() + 200);
+                                  newWindow.setY(primaryStage.getY() + 100);
+                                    */
+                                  newWindow.show();
+                              }
+                          });
+              button1.setLayoutX(500);
               button1.setLayoutY(200);
 
               // create a Menu button
@@ -96,7 +146,7 @@ public class Bang extends Application{
                 MenuItem menuItem2 = new MenuItem("5 Players");
                 MenuItem menuItem3 = new MenuItem("6 Players");
 
-                MenuButton menuButton = new MenuButton("Options", null, menuItem1, menuItem2, menuItem3);
+                MenuButton menuButton = new MenuButton("Number of players", null, menuItem1, menuItem2, menuItem3);
                 menuItem1.setOnAction((ActionEvent event) ->{
                   menuButton.setText("4 players");
                 });
@@ -115,21 +165,65 @@ public class Bang extends Application{
 
 
                 HBox hbox = new HBox(menuButton);
-                hbox.setLayoutX(400);
+                hbox.setLayoutX(500);
                 hbox.setLayoutY(240);
+                /*
+                // create a Menu button
+                MenuItem menuItem4 = new MenuItem("Classic");
+                MenuItem menuItem5 = new MenuItem("Undead or alive");
+                MenuItem menuItem6 = new MenuItem("Old fashion");
 
-              // create a stack pane
-              StackPane r = new StackPane();
+                MenuButton menuButton2 = new MenuButton("Gameplay", null, menuItem4, menuItem5, menuItem6);
+                menuItem4.setOnAction((ActionEvent event) ->{
+                    menuButton2.setText("Classic");
+                });
+
+                menuItem5.setOnAction((ActionEvent event) ->{
+                    menuButton2.setText("Undead or alive");
+                });
+
+                menuItem6.setOnAction((ActionEvent event) ->{
+                    menuButton2.setText("Old fashion");
+                });
+                ChoiceBox<String> choiceBox2 = new ChoiceBox<>();
+                choiceBox.getItems().add("Classic");
+                choiceBox.getItems().add("Undead or alive");
+                choiceBox.getItems().add("Old fashion");
+
+
+                HBox hbox2 = new HBox(menuButton2);
+                hbox2.setLayoutX(400);
+                hbox2.setLayoutY(280);
+                */
+              //Create checkbox
+                CheckBox checkBox1 = new CheckBox("Classic");
+                CheckBox checkBox2 = new CheckBox("Undead or alive");
+                CheckBox checkBox3 = new CheckBox("Old fashion");
+
+                HBox hbox3 = new HBox(checkBox1);
+                hbox3.setLayoutX(500);
+                hbox3.setLayoutY(280);
+
+                HBox hbox4 = new HBox(checkBox2);
+                hbox4.setLayoutX(500);
+                hbox4.setLayoutY(310);
+
+                HBox hbox5 = new HBox(checkBox3);
+                hbox5.setLayoutX(500);
+                hbox5.setLayoutY(340);
+
+                  // create a stack pane
+                StackPane r = new StackPane();
 
               // add button
               r.getChildren().add(button1);
               r.getChildren().add(hbox);
 
-        //Creating a Group object
-              Group root = new Group(imageView1, button1, hbox);
+              //Creating a Group object
+              Group root = new Group(imageView1, button1, hbox, hbox3, hbox4, hbox5);
 
               //Creating a scene object
-              Scene scene = new Scene(root, 600, 400);
+              Scene scene = new Scene(root, 800, 600);
 
               //Setting title to the Stage
               stage.setTitle("Bang The Dice Game");
@@ -147,5 +241,5 @@ public class Bang extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
