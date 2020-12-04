@@ -1,3 +1,4 @@
+package bang; 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Optional;
@@ -23,7 +24,7 @@ import javax.swing.*;
 //import javafx.geometry.Insets;
 //import javafx.geometry.Pos;
 
-public class Main extends Application {
+public class Bang extends Application {
     @Override
     public void start (Stage stage) throws FileNotFoundException{
         /*
