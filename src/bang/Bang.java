@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package bang;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-//import java.util.Optional;
+import java.util.Optional;
 
 import javafx.application.Application;
 //import static javafx.application.Application.launch;
@@ -25,19 +19,13 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 
-//import javax.swing.*;
+import javax.swing.*;
 //import javafx.geometry.Insets;
 //import javafx.geometry.Pos;
 
-
-/**
- *
- * @author vreyz
- */
-
-public class Bang extends Application{
+public class Main extends Application {
     @Override
-            public void start (Stage stage) throws FileNotFoundException{
+    public void start (Stage stage) throws FileNotFoundException{
         /*
         //Creating the button
         Button button;
@@ -46,70 +34,87 @@ public class Bang extends Application{
         */
 
         //Creating an image
-             Image image = new Image(new FileInputStream("C:\\Users\\vreyz\\Desktop\\Bang\\bangFront.jpg"));
+        Image image = new Image(new FileInputStream("bangFront.jpg"));
 
-             //Setting the image view 1
-              ImageView imageView1 = new ImageView(image);
+        //Setting the image view 1
+        ImageView imageView1 = new ImageView(image);
 
-              //Setting the position of the image
-              imageView1.setX(50);
-              imageView1.setY(15);
+        //Setting the position of the image
+        imageView1.setX(50);
+        imageView1.setY(15);
 
-              //setting the fit height and width of the image view
-              imageView1.setFitHeight(470);
-              imageView1.setFitWidth(390);
+        //setting the fit height and width of the image view
+        imageView1.setFitHeight(470);
+        imageView1.setFitWidth(390);
 
-              //Setting the preserve ratio of the image view
-              imageView1.setPreserveRatio(true);
+        //Setting the preserve ratio of the image view
+        imageView1.setPreserveRatio(true);
 
-              // create a button1
-              Button button1 = new Button("Start Game");
+        // create a button1
+        Button button1 = new Button("Start Game");
 
-              // Here's the second page that will be opened once we click on the button
-              button1.setOnAction(new EventHandler<ActionEvent>() {
-                  @Override
-                  public void handle(ActionEvent event) {
-                                //  Label secondLabel = new Label("");
+        // Here's the second page that will be opened once we click on the button
+        button1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                startGame();
 
-                                  //Creating a Text object
-                                  Text text = new Text();
-                                  Text text2 = new Text();
-                                  Text text3 = new Text();
-                                  Text text4 = new Text();
+                //public static void createPlayerFrame(int ID, int health, String roles, int arrow, boolean isSherrif){
+                //Creating a Text object
+                Text text = new Text();
+                Text text2 = new Text();
+                Text text3 = new Text();
+                Text text4 = new Text();
+                Text text5 = new Text();
+                Text text6 = new Text();
 
-                                  //Setting the text to be added.
-                                  text.setText("Player statistics:");
-                                  text2.setText("Health:\n");
-                                  text3.setText("Role:\n");
-                                  text4.setText("Arrow:\n");
+                //Setting the text to be added.
+                text.setText("Player statistics:");
+                text2.setText("Player ID: "+ "\n");
+                text3.setText("Health: "  + "\n");
+                text4.setText("Role: "   + "\n");
+                text5.setText("Arrow: "   + "\n");
+                text6.setText("Sheriff?: " + "\n");
 
 
-                                  //setting the position of the text
-                                  text.setLayoutX(20);
-                                  text.setLayoutY(20);
+                //setting the position of the text
+                text.setLayoutX(20);
+                text.setLayoutY(20);
 
-                                  text2.setLayoutX(20);
-                                  text2.setLayoutY(30);
+                text2.setLayoutX(20);
+                text2.setLayoutY(40);
 
-                                  text3.setLayoutX(20);
-                                  text3.setLayoutY(40);
+                text3.setLayoutX(20);
+                text3.setLayoutY(60);
 
-                                  text4.setLayoutX(20);
-                                  text4.setLayoutY(50);
+                text4.setLayoutX(20);
+                text4.setLayoutY(80);
 
-                                  //Creating a Group object
-                                  Group root = new Group(text, text2, text3, text4);
+                text5.setLayoutX(20);
+                text5.setLayoutY(100);
 
-                                  Group secondaryLayout = new Group();
-                                  //secondaryLayout.getChildren().add(secondLabel);
-                                  secondaryLayout.getChildren().add(text);
+                text6.setLayoutX(20);
+                text6.setLayoutY(120);
 
-                                  Scene secondScene = new Scene(secondaryLayout, 800, 600);
+                //Creating a Group object
+                Group root = new Group(text, text2, text3, text4, text5);
 
-                                  // New window (Stage)
-                                  Stage newWindow = new Stage();
-                                  newWindow.setTitle("Second Stage");
-                                  newWindow.setScene(secondScene);
+                Group secondaryLayout = new Group();
+                //secondaryLayout.getChildren().add(secondLabel);
+                secondaryLayout.getChildren().add(text);
+                secondaryLayout.getChildren().add(text2);
+                secondaryLayout.getChildren().add(text3);
+                secondaryLayout.getChildren().add(text4);
+                secondaryLayout.getChildren().add(text5);
+                secondaryLayout.getChildren().add(text6);
+
+
+                Scene secondScene = new Scene(secondaryLayout, 800, 600);
+
+                // New window (Stage)
+                Stage newWindow = new Stage();
+                newWindow.setTitle("Second Stage");
+                newWindow.setScene(secondScene);
             /*
                                   //Creating a scene object
                                   Scene scene = new Scene(root, 600, 400);
@@ -122,10 +127,10 @@ public class Bang extends Application{
                                   //stage.setScene(scene2);
 
                                   //Displaying the contents of the stage
-                                  stage.show(); j
+                                  stage.show();
             */
-                      // Specifies the modality for new window.
-                                  newWindow.initModality(Modality.WINDOW_MODAL);
+                // Specifies the modality for new window.
+                newWindow.initModality(Modality.WINDOW_MODAL);
 
                                   /*
                                   // Specifies the owner Window (parent) for new window
@@ -135,38 +140,38 @@ public class Bang extends Application{
                                   newWindow.setX(primaryStage.getX() + 200);
                                   newWindow.setY(primaryStage.getY() + 100);
                                     */
-                                  newWindow.show();
-                              }
-                          });
-              button1.setLayoutX(500);
-              button1.setLayoutY(200);
+                newWindow.show();
+            }
+        });
+        button1.setLayoutX(500);
+        button1.setLayoutY(200);
 
-              // create a Menu button
-                MenuItem menuItem1 = new MenuItem("4 Players");
-                MenuItem menuItem2 = new MenuItem("5 Players");
-                MenuItem menuItem3 = new MenuItem("6 Players");
+        // create a Menu button
+        MenuItem menuItem1 = new MenuItem("4 Players");
+        MenuItem menuItem2 = new MenuItem("5 Players");
+        MenuItem menuItem3 = new MenuItem("6 Players");
 
-                MenuButton menuButton = new MenuButton("Number of players", null, menuItem1, menuItem2, menuItem3);
-                menuItem1.setOnAction((ActionEvent event) ->{
-                  menuButton.setText("4 players");
-                });
+        MenuButton menuButton = new MenuButton("Number of players", null, menuItem1, menuItem2, menuItem3);
+        menuItem1.setOnAction((ActionEvent event) ->{
+            menuButton.setText("4 players");
+        });
 
-                menuItem2.setOnAction((ActionEvent event) ->{
-                    menuButton.setText("5 players");
-                });
+        menuItem2.setOnAction((ActionEvent event) ->{
+            menuButton.setText("5 players");
+        });
 
-                menuItem3.setOnAction((ActionEvent event) ->{
-                    menuButton.setText("6 players");
-                });
-                ChoiceBox<String> choiceBox = new ChoiceBox<>();
-                choiceBox.getItems().add("4 Players");
-                choiceBox.getItems().add("5 Players");
-                choiceBox.getItems().add("6 Players");
+        menuItem3.setOnAction((ActionEvent event) ->{
+            menuButton.setText("6 players");
+        });
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+        choiceBox.getItems().add("4 Players");
+        choiceBox.getItems().add("5 Players");
+        choiceBox.getItems().add("6 Players");
 
 
-                HBox hbox = new HBox(menuButton);
-                hbox.setLayoutX(500);
-                hbox.setLayoutY(240);
+        HBox hbox = new HBox(menuButton);
+        hbox.setLayoutX(500);
+        hbox.setLayoutY(240);
                 /*
                 // create a Menu button
                 MenuItem menuItem4 = new MenuItem("Classic");
@@ -195,45 +200,45 @@ public class Bang extends Application{
                 hbox2.setLayoutX(400);
                 hbox2.setLayoutY(280);
                 */
-              //Create checkbox
-                CheckBox checkBox1 = new CheckBox("Classic");
-                CheckBox checkBox2 = new CheckBox("Undead or alive");
-                CheckBox checkBox3 = new CheckBox("Old fashion");
+        //Create checkbox
+        CheckBox checkBox1 = new CheckBox("Classic");
+        CheckBox checkBox2 = new CheckBox("Undead or alive");
+        CheckBox checkBox3 = new CheckBox("Old fashion");
 
-                HBox hbox3 = new HBox(checkBox1);
-                hbox3.setLayoutX(500);
-                hbox3.setLayoutY(280);
+        HBox hbox3 = new HBox(checkBox1);
+        hbox3.setLayoutX(500);
+        hbox3.setLayoutY(280);
 
-                HBox hbox4 = new HBox(checkBox2);
-                hbox4.setLayoutX(500);
-                hbox4.setLayoutY(310);
+        HBox hbox4 = new HBox(checkBox2);
+        hbox4.setLayoutX(500);
+        hbox4.setLayoutY(310);
 
-                HBox hbox5 = new HBox(checkBox3);
-                hbox5.setLayoutX(500);
-                hbox5.setLayoutY(340);
+        HBox hbox5 = new HBox(checkBox3);
+        hbox5.setLayoutX(500);
+        hbox5.setLayoutY(340);
 
-                  // create a stack pane
-                StackPane r = new StackPane();
+        // create a stack pane
+        StackPane r = new StackPane();
 
-              // add button
-              r.getChildren().add(button1);
-              r.getChildren().add(hbox);
+        // add button
+        r.getChildren().add(button1);
+        r.getChildren().add(hbox);
 
-              //Creating a Group object
-              Group root = new Group(imageView1, button1, hbox, hbox3, hbox4, hbox5);
+        //Creating a Group object
+        Group root = new Group(imageView1, button1, hbox, hbox3, hbox4, hbox5);
 
-              //Creating a scene object
-              Scene scene = new Scene(root, 800, 600);
+        //Creating a scene object
+        Scene scene = new Scene(root, 800, 600);
 
-              //Setting title to the Stage
-              stage.setTitle("Bang The Dice Game");
+        //Setting title to the Stage
+        stage.setTitle("Bang The Dice Game");
 
-              //Adding scene to the stage
-              stage.setScene(scene);
-              //stage.setScene(scene2);
+        //Adding scene to the stage
+        stage.setScene(scene);
+        //stage.setScene(scene2);
 
-              //Displaying the contents of the stage
-              stage.show();
+        //Displaying the contents of the stage
+        stage.show();
 
     }
 
@@ -243,3 +248,4 @@ public class Bang extends Application{
     }
 
 }
+
