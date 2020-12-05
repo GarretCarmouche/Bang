@@ -54,7 +54,7 @@ public class Bang extends Application{
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                startGame(player);}
+                startGame();}
         });
         button1.setLayoutX(500);
         button1.setLayoutY(200);

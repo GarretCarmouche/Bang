@@ -1,13 +1,11 @@
 package bang;
 
 import java.util.ArrayList;
-
 /**
  *
  * @author Garret Carmouche
  */
 public class Gameplay {
-    
     private static boolean blackDieEnabled = false;
     private static boolean loudmouthDieEnabled = false;
     private static boolean cowardDieEnabled = false;
@@ -29,7 +27,8 @@ public class Gameplay {
         undeadOrAliveEnabled = undeadOrAlive;
         oldSaloonEnabled = oldSaloon;
         constructPlayers(playerCount);
-        //Invoke Bang with players
+        
+        Bang.createPlayerFrames(players);
     }
     
     /**
@@ -203,6 +202,12 @@ public class Gameplay {
         
         String[] result = rollDice();
         for (String result1 : result) {
+            
+            //Update UI
+            for(int i = 0; i < players.length; i++){
+                Bang.updatePlayerFrame(i, players[i]);
+            }
+            
             int bullsEyeRange = 2;
             int bullsEyeDamage = 1;
             switch (result1) {
@@ -292,6 +297,11 @@ public class Gameplay {
                     break;
             }
         }
+        
+        for(int i = 0; i < players.length; i++){
+                Bang.updatePlayerFrame(i, players[i]);
+            }
+        
         if(dynamite >= 3){
             return;
         }
