@@ -29,10 +29,10 @@ public class Characters
     public enum Character_Name_Undead_Or_Alive {Greg_Digger, Herb_Hunter, Pat_Brennan, 
     Pixie_Pete, Sam_The_Healer, Sean_Mallory, Belle_Star, Chuck_Wengam}
     
-    public ArrayDeque<Implement> DrawPile = new ArrayDeque<Implement>();
-    public ArrayList<Implement> DiscardPile = new ArrayList<Implement>(); /*Implemnted just in case this is changed for all cards in general*/
+    public static ArrayDeque<Implement> DrawPile = new ArrayDeque<Implement>();
+    public static ArrayList<Implement> DiscardPile = new ArrayList<Implement>(); /*Implemnted just in case this is changed for all cards in general*/
     public Characters(){}
-    public void fillCharacterDeck(int numPlayers)
+    public static void fillCharacterDeck(int numPlayers)
     {
         ArrayList<Character_Name_Base> MainCharList = new ArrayList<Character_Name_Base>();
         for(Character_Name_Base e: Character_Name_Base.values())
@@ -54,17 +54,18 @@ public class Characters
         
         for(int n = 0; n<numPlayers; n++)
         {
+            System.out.println(n);
             DrawPile.add(new Implement(MainCharList.remove((int)(Math.random()*MainCharList.size()))));
         }
     }
-    public Implement draw() throws Exception
+    public static Implement draw() throws Exception
     {
         if(DrawPile.size() > 0)
             return DrawPile.pop();
         else
             throw new Exception("This deck is empty!");
     }
-    public int size()
+    public static int size()
     {
         return DrawPile.size();
     }

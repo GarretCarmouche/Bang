@@ -2,6 +2,8 @@ package bang;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.application.Application;
 //import static javafx.application.Application.launch;
@@ -27,8 +29,17 @@ import javax.swing.*;
 public class Bang extends Application {
     static PlayerFrame[] playerFrames;
     static int players = 0;
+    static Group secondaryLayout = new Group();
+    static Text[] dice = new Text[6];
+    static Text diceLabel = new Text();
+    static Button button2 = new Button("Roll Dice");
+    
     @Override
     public void start (Stage stage) throws FileNotFoundException{
+        secondaryLayout.getChildren().add(diceLabel);
+        button2.setLayoutX(500);
+        button2.setLayoutY(200);
+        secondaryLayout.getChildren().add(button2);
         /*
         //Creating the button
         Button button;
@@ -135,10 +146,12 @@ public class Bang extends Application {
         hbox5.setLayoutX(500);
         hbox5.setLayoutY(340);
         
-        button1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                startGame(players, checkBox2.isSelected(), checkBox3.isSelected());}
+        button1.setOnAction((ActionEvent event) -> {
+            try {
+                Gameplay.startGame(players, checkBox2.isSelected(), checkBox3.isSelected());
+            } catch (Exception ex) {
+                Logger.getLogger(Bang.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
 
         // create a stack pane
@@ -149,7 +162,7 @@ public class Bang extends Application {
         r.getChildren().add(hbox);
 
         //Creating a Group object
-        Group root = new Group(imageView1, button1, hbox, hbox3, hbox4, hbox5);
+        Group root = new Group(imageView1, button1, hbox, hbox4, hbox5);
 
         //Creating a scene object
         Scene scene = new Scene(root, 800, 600);
@@ -166,16 +179,51 @@ public class Bang extends Application {
 
     }
     
+    public static void showDice(String[] results, String playerName){
+        System.out.println("Showing dice");
+        diceLabel.setLayoutX(300);
+        diceLabel.setLayoutY(400);
+        diceLabel.setText(playerName+":");
+        for (Text dice1 : dice) {
+            secondaryLayout.getChildren().remove(dice1);
+        }
+        for(int i = 0; i < results.length; i++){
+            dice[i] = new Text();
+            dice[i].setLayoutX(400 + 100 * i);
+            dice[i].setLayoutY(400);
+            dice[i].setText(results[i]);
+            secondaryLayout.getChildren().add(dice[i]);
+        }
+    }
+    
+    public static void showDieRollButton(){
+        button2.setVisible(true);
+        button2.setOnAction((ActionEvent e) ->{
+            button2.setVisible(false);
+            Gameplay.nextTurn(true);
+        });
+    }
+    
     public static void createPlayerFrames(Player[] players){
+        Scene secondScene = new Scene(secondaryLayout, 1200, 1000);
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Second Stage");
+        newWindow.setScene(secondScene);
+        newWindow.initModality(Modality.WINDOW_MODAL);
+        newWindow.show();
+        
         playerFrames = new PlayerFrame[players.length];
         for(int i = 0; i < players.length; i++){
-            playerFrames[i] = createPlayerFrame(i,players[i].getCharacter().getHealth(), players[i].getRole(), players[i].getArrows(), players[i].getRole() == "Sheriff");
+            Implement ch = players[i].getCharacter();
+            int health = ch.getHealth();
+            String role = players[i].getRole();
+            playerFrames[i] = createPlayerFrame(i,health, role, players[i].getArrows(), players[i].getRole().equals("Sheriff"), secondaryLayout, secondScene);
         }
     }
 
 
     //Function that will be called once startGame is done working
-    public static PlayerFrame createPlayerFrame(int ID, int health, String roles, int arrow, boolean isSherrif){
+    public static PlayerFrame createPlayerFrame(int ID, int health, String roles, int arrow, boolean isSherrif,Group secondaryLayout, Scene secondScene){
         //Creating a Text object
         Text text = new Text();
         Text text2 = new Text();
@@ -202,8 +250,8 @@ public class Bang extends Application {
 
         //Assume each set is 10x30
         //Assume there are 3 columns
-        int x = (ID%3 - 1) * 20;
-        int y = (ID/6) * 100;
+        int x = (ID%4) * 200;
+        int y = (ID/4) * 200;
         //setting the position of the text
         text.setLayoutX(x);
         text.setLayoutY(y);
@@ -224,9 +272,7 @@ public class Bang extends Application {
         text6.setLayoutY(100 + y);
 
         //Creating a Group object
-        Group root = new Group(text, text2, text3, text4, text5);
 
-        Group secondaryLayout = new Group();
         //secondaryLayout.getChildren().add(secondLabel);
         secondaryLayout.getChildren().add(text);
         secondaryLayout.getChildren().add(text2);
@@ -236,38 +282,10 @@ public class Bang extends Application {
         secondaryLayout.getChildren().add(text6);
 
 
-        Scene secondScene = new Scene(secondaryLayout, 1200, 1000);
+        
 
         // New window (Stage)
-        Stage newWindow = new Stage();
-        newWindow.setTitle("Second Stage");
-        newWindow.setScene(secondScene);
-            /*
-                                  //Creating a scene object
-                                  Scene scene = new Scene(root, 600, 400);
-
-                                  //Setting title to the Stage
-                                  stage.setTitle("Bang The Dice Game");
-
-                                  //Adding scene to the stage
-                                  stage.setScene(scene);
-                                  //stage.setScene(scene2);
-
-                                  //Displaying the contents of the stage
-                                  stage.show();
-            */
-        // Specifies the modality for new window.
-        newWindow.initModality(Modality.WINDOW_MODAL);
-
-                                  /*
-                                  // Specifies the owner Window (parent) for new window
-                                  newWindow.initOwner(primaryStage);
-
-                                  // Set position of second window, related to primary window.
-                                  newWindow.setX(primaryStage.getX() + 200);
-                                  newWindow.setY(primaryStage.getY() + 100);
-                                    */
-        newWindow.show();
+        
         return frame;
     }
     

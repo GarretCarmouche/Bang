@@ -11,10 +11,12 @@ public class Player {
     private Implement character;
     private String role;
     private int arrows = 0;
+    private int ID;
     
-    public Player(Implement character, String role){
+    public Player(Implement character, String role, int ID){
         this.character = character;
         this.role = role;
+        this.ID = ID;
     }
     
     
@@ -49,5 +51,9 @@ public class Player {
     
     public void removeArrows(){
         arrows = 0;
+    }
+    
+    public String toString(){
+        return "Player "+ID;
     }
 }

@@ -13,8 +13,8 @@ public class AI extends Player {
     /**
      * AI constructor
      */
-    public AI(){
-        super();
+    public AI(Implement ch, String role, int ID){
+        super(ch, role, ID);
     }
     
     /**
@@ -22,18 +22,14 @@ public class AI extends Player {
      * @param dice Number of dice to roll
      * @return List of length dice results
      */
-    public ArrayList<String> rollDice(int dice){
-        ArrayList<String> diceResults = new ArrayList<String>();
-        for(int i = 0; i < dice; i++){
-            //Pending correction from Samrat
-            //diceResults.add(Die.rollDice());
-        }
-        return diceResults;
+    public String[] rollDice(int dice){
+        return Gameplay.rollDice();
     }
     
     public void runTurn(){
         int dice = 6;
-        ArrayList<String> diceResults = rollDice(dice);
+        String[] diceResults = rollDice(dice);
+        Bang.showDice(diceResults, this.toString());
     }
     
     /**
