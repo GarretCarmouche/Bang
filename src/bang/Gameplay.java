@@ -1,6 +1,8 @@
 package bang;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Garret Carmouche
@@ -22,13 +24,14 @@ public class Gameplay {
     private static int blackDice = 0;
     
     
-    public static void startGame(int playerCount, boolean undeadOrAlive, boolean oldSaloon){
+    public static void startGame(int playerCount, boolean undeadOrAlive, boolean oldSaloon) throws Exception{
         players = null;
         undeadOrAliveEnabled = undeadOrAlive;
         oldSaloonEnabled = oldSaloon;
         constructPlayers(playerCount);
         
         Bang.createPlayerFrames(players);
+        Bang.showDieRollButton();
     }
     
     /**
@@ -74,18 +77,28 @@ public class Gameplay {
         return results;
     }
     
-    public static void startGame(){
-        
-    }
-    
     /**
      * Constructs the appropriate number of AI and players
      * @param playerCount Number of players in the game (including user)
      */
-    public static void constructPlayers(int playerCount){
-        players[0] = new Player();
+    public static void constructPlayers(int playerCount) throws Exception{
+        Characters.fillCharacterDeck(playerCount);
+        int sheriffID = (int)(Math.random() * playerCount);
+        players = new Player[playerCount];
+        String[] roles = {"Deputy","Outlaw","Renegade"};
+        
+        if(sheriffID == 0){
+            players[0] = new Player(Characters.draw(), "Sheriff",1);
+        }else{
+            players[0] = new Player(Characters.draw(), roles[(int)(Math.random() * 3)],1);
+        }
+        
         for(int i = 1; i < playerCount; i++){
-            players[i] = new AI();
+            if(sheriffID == i){
+                players[i] = new AI(Characters.draw(), "Sheriff",i+1);
+            }else{
+                players[i] = new AI(Characters.draw(), roles[(int)(Math.random() * 3)],i+1);
+            }            
         }
     }
     
@@ -121,21 +134,20 @@ public class Gameplay {
                         break;
                 }
             }
-            
-            if(numberOfOutlaw == 0 && numberOfRenegade == 0){
-                result.gameOver = true;
-                result.victoriousFaction = "Sheriff";
-            }else if(numberOfDeputies == 0){
-                if(numberOfOutlaw == 0){
-                    if(numberOfRenegade == 1){
-                        result.gameOver = true;
-                        result.victoriousFaction = "Renegade";
-                        result.victoriousPlayer = renegade;
-                    }
-                }else{
+        }
+        if(numberOfOutlaw == 0 && numberOfRenegade == 0){
+            result.gameOver = true;
+            result.victoriousFaction = "Sheriff";
+        }else if(numberOfDeputies == 0){
+            if(numberOfOutlaw == 0){
+                if(numberOfRenegade == 1){
                     result.gameOver = true;
-                    result.victoriousFaction = "Outlaw";
+                    result.victoriousFaction = "Renegade";
+                    result.victoriousPlayer = renegade;
                 }
+            }else{
+                result.gameOver = true;
+                result.victoriousFaction = "Outlaw";
             }
         }
         
@@ -166,10 +178,15 @@ public class Gameplay {
         }
     }
     
+    public static void nextTurn(){
+        nextTurn(false);
+    }
     /**
      * Iterate through turns until player turn is reached
+     * @param playerInit defines whether or not the player has clicked "Roll dice" yet if it is their turn
      */
-    private static void nextTurn(){
+    public static void nextTurn(boolean playerInit){
+        System.out.println("Next turn");
         //Init dice counts
         defaultDice = 6;
         blackDice = 0;
@@ -194,21 +211,28 @@ public class Gameplay {
         
         Player player = players[currentTurn];
         if(player instanceof AI){
-            ((AI) player).runTurn();
-        }else{
-            //Prompt dice roll from UI   
+            try {
+                Thread.sleep(700);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //((AI) player).runTurn();
+        }else if(!playerInit){
+            System.out.println("Player");
+            Bang.showDieRollButton();
+            return;
         }
-        
-        
+        System.out.println("Roll dice");
         String[] result = rollDice();
+        Bang.showDice(result, player.toString());
+        
         for (String result1 : result) {
-            
             //Update UI
             for(int i = 0; i < players.length; i++){
                 Bang.updatePlayerFrame(i, players[i]);
             }
             
-            int bullsEyeRange = 2;
+            int bullsEyeRange;
             int bullsEyeDamage = 1;
             switch (result1) {
                 case "Arrow":
@@ -237,6 +261,9 @@ public class Gameplay {
                         
                         do{
                             leftIndex = (leftIndex - 1)%players.length;
+                            if(leftIndex == -1){
+                                leftIndex = players.length-1;
+                            }
                             left = players[leftIndex];
                         }while(left.getCharacter().isAlive() && left != player);
                         
@@ -297,17 +324,19 @@ public class Gameplay {
                     break;
             }
         }
-        
+        System.out.println("Update frames");
         for(int i = 0; i < players.length; i++){
-                Bang.updatePlayerFrame(i, players[i]);
-            }
-        
-        if(dynamite >= 3){
-            return;
+            Bang.updatePlayerFrame(i, players[i]);
         }
         
-        GameResult Gameresult = getGameResult();
-        if(!Gameresult.gameOver){
+        /*if(dynamite >= 3){
+            nextTurn();
+            return;
+        }*/
+        
+        GameResult gameResult = getGameResult();
+        System.out.println(gameResult.gameOver);
+        if(!gameResult.gameOver){
             nextTurn();
         }
     }
