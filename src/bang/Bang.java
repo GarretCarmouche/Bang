@@ -291,4 +291,3 @@ class PlayerFrame{
     Text Arrows;
     Text Sheriff;
 }
-
