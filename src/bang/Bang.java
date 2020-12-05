@@ -1,3 +1,4 @@
+package bang;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Optional;
@@ -23,7 +24,9 @@ import javax.swing.*;
 //import javafx.geometry.Insets;
 //import javafx.geometry.Pos;
 
-public class Main extends Application {
+public class Bang extends Application {
+    static PlayerFrame[] playerFrames;
+    static int players = 0;
     @Override
     public void start (Stage stage) throws FileNotFoundException{
         /*
@@ -54,11 +57,7 @@ public class Main extends Application {
         Button button1 = new Button("Start Game");
 
         // Here's the second page that will be opened once we click on the button
-        button1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                startGame(player);}
-        });
+        
         button1.setLayoutX(500);
         button1.setLayoutY(200);
 
@@ -70,14 +69,17 @@ public class Main extends Application {
         MenuButton menuButton = new MenuButton("Number of players", null, menuItem1, menuItem2, menuItem3);
         menuItem1.setOnAction((ActionEvent event) ->{
             menuButton.setText("4 players");
+            players = 4;
         });
 
         menuItem2.setOnAction((ActionEvent event) ->{
             menuButton.setText("5 players");
+            players = 5;
         });
 
         menuItem3.setOnAction((ActionEvent event) ->{
             menuButton.setText("6 players");
+            players = 6;
         });
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
         choiceBox.getItems().add("4 Players");
@@ -117,13 +119,13 @@ public class Main extends Application {
                 hbox2.setLayoutY(280);
                 */
         //Create checkbox
-        CheckBox checkBox1 = new CheckBox("Classic");
+        //CheckBox checkBox1 = new CheckBox("Classic");
         CheckBox checkBox2 = new CheckBox("Undead or alive");
         CheckBox checkBox3 = new CheckBox("Old Saloon");
 
-        HBox hbox3 = new HBox(checkBox1);
-        hbox3.setLayoutX(500);
-        hbox3.setLayoutY(280);
+        //HBox hbox3 = new HBox(checkBox1);
+        //hbox3.setLayoutX(500);
+        //hbox3.setLayoutY(280);
 
         HBox hbox4 = new HBox(checkBox2);
         hbox4.setLayoutX(500);
@@ -132,6 +134,12 @@ public class Main extends Application {
         HBox hbox5 = new HBox(checkBox3);
         hbox5.setLayoutX(500);
         hbox5.setLayoutY(340);
+        
+        button1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                startGame(players, checkBox2.isSelected(), checkBox3.isSelected());}
+        });
 
         // create a stack pane
         StackPane r = new StackPane();
@@ -157,8 +165,17 @@ public class Main extends Application {
         stage.show();
 
     }
+    
+    public static void createPlayerFrames(Player[] players){
+        playerFrames = new PlayerFrame[players.length];
+        for(int i = 0; i < players.length; i++){
+            playerFrames[i] = createPlayerFrame(i,players[i].getCharacter().getHealth(), players[i].getRole(), players[i].getArrows(), players[i].getRole() == "Sheriff");
+        }
+    }
+
+
     //Function that will be called once startGame is done working
-    public static void createPlayerFrame(int ID, int health, String roles, int arrow, boolean isSherrif){
+    public static PlayerFrame createPlayerFrame(int ID, int health, String roles, int arrow, boolean isSherrif){
         //Creating a Text object
         Text text = new Text();
         Text text2 = new Text();
@@ -174,26 +191,37 @@ public class Main extends Application {
         text4.setText("Role: " + roles + "\n");
         text5.setText("Arrow: " + arrow  + "\n");
         text6.setText("Sheriff?: " + isSherrif + "\n");
+        
+        PlayerFrame frame = new PlayerFrame();
+        frame.Arrows = text5;
+        frame.Health = text3;
+        frame.PlayerID = text2;
+        frame.Role = text4;
+        frame.Sheriff = text6;
+        frame.statistics = text;
 
-
+        //Assume each set is 10x30
+        //Assume there are 3 columns
+        int x = (ID%3 - 1) * 20;
+        int y = (ID/6) * 100;
         //setting the position of the text
-        text.setLayoutX(20);
-        text.setLayoutY(20);
+        text.setLayoutX(x);
+        text.setLayoutY(y);
 
-        text2.setLayoutX(20);
-        text2.setLayoutY(40);
+        text2.setLayoutX(x);
+        text2.setLayoutY(20 + y);
 
-        text3.setLayoutX(20);
-        text3.setLayoutY(60);
+        text3.setLayoutX(x);
+        text3.setLayoutY(40+y);
 
-        text4.setLayoutX(20);
-        text4.setLayoutY(80);
+        text4.setLayoutX(x);
+        text4.setLayoutY(60 + y);
 
-        text5.setLayoutX(20);
-        text5.setLayoutY(100);
+        text5.setLayoutX(x);
+        text5.setLayoutY(80 + y);
 
-        text6.setLayoutX(20);
-        text6.setLayoutY(120);
+        text6.setLayoutX(x);
+        text6.setLayoutY(100 + y);
 
         //Creating a Group object
         Group root = new Group(text, text2, text3, text4, text5);
@@ -208,7 +236,7 @@ public class Main extends Application {
         secondaryLayout.getChildren().add(text6);
 
 
-        Scene secondScene = new Scene(secondaryLayout, 800, 600);
+        Scene secondScene = new Scene(secondaryLayout, 1200, 1000);
 
         // New window (Stage)
         Stage newWindow = new Stage();
@@ -240,12 +268,27 @@ public class Main extends Application {
                                   newWindow.setY(primaryStage.getY() + 100);
                                     */
         newWindow.show();
+        return frame;
     }
-
+    
+    public static void updatePlayerFrame(int ID, Player p){
+        PlayerFrame pf = playerFrames[ID];
+        pf.Health.textProperty().set("Health: "+p.getCharacter().getHealth());
+        pf.Arrows.textProperty().set("Arrows: "+p.getArrows());
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
 
+}
+
+class PlayerFrame{
+    Text statistics;
+    Text PlayerID;
+    Text Health;
+    Text Role;
+    Text Arrows;
+    Text Sheriff;
 }
 
