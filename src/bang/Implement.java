@@ -265,4 +265,8 @@ public class Implement
     public void heal(int amount){
         Health += amount;
     }
+    
+    public int getHealth(){
+        return Health;
+    }
 }

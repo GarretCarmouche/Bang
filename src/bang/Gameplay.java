@@ -1,16 +1,16 @@
 package bang;
 
 import java.util.ArrayList;
-
 /**
  *
  * @author Garret Carmouche
  */
 public class Gameplay {
-    
     private static boolean blackDieEnabled = false;
     private static boolean loudmouthDieEnabled = false;
     private static boolean cowardDieEnabled = false;
+    private static boolean undeadOrAliveEnabled = false;
+    private static boolean oldSaloonEnabled = false;
     
     private static Player[] players;
     private static int currentTurn = -1;
@@ -21,6 +21,15 @@ public class Gameplay {
     private static int cowardDice = 0;
     private static int blackDice = 0;
     
+    
+    public static void startGame(int playerCount, boolean undeadOrAlive, boolean oldSaloon){
+        players = null;
+        undeadOrAliveEnabled = undeadOrAlive;
+        oldSaloonEnabled = oldSaloon;
+        constructPlayers(playerCount);
+        
+        Bang.createPlayerFrames(players);
+    }
     
     /**
      * Rolls the appropriate dice for the expansion and returns the result
@@ -193,6 +202,12 @@ public class Gameplay {
         
         String[] result = rollDice();
         for (String result1 : result) {
+            
+            //Update UI
+            for(int i = 0; i < players.length; i++){
+                Bang.updatePlayerFrame(i, players[i]);
+            }
+            
             int bullsEyeRange = 2;
             int bullsEyeDamage = 1;
             switch (result1) {
@@ -282,6 +297,11 @@ public class Gameplay {
                     break;
             }
         }
+        
+        for(int i = 0; i < players.length; i++){
+                Bang.updatePlayerFrame(i, players[i]);
+            }
+        
         if(dynamite >= 3){
             return;
         }
